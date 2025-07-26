@@ -21,7 +21,7 @@
   }
 
   h1 {
-    @apply mx-auto max-w-4xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px] mt-30;
+    @apply mx-auto max-w-4xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px] mt-23;
   }
 
   h2 {
@@ -37,14 +37,14 @@
   }
 
   header img {
-    @apply w-full max-w-lg h-auto object-contain mx-auto drop-shadow-md mb-10;
+    @apply w-full max-w-lg h-auto object-contain mx-auto drop-shadow-md;
   }
 }
 
 @layer components {
 
   .hero-card {
-    @apply w-[240px] h-[330px] rounded-2xl hover:scale-110 transition-all duration-600 overflow-hidden border-7 border-black object-fill
+    @apply w-[240px] h-[330px] rounded-2xl hover:scale-110 transition-all duration-600 overflow-hidden border-10 border-[#0f0d23] object-fill
   }
 
   .pattern {
