@@ -12,7 +12,7 @@ function MovieCard({ movie:{ title, vote_average, poster_path, release_date, ori
           <div className="rating">
             <img src="./star.svg" alt="Star Icon"/>
 
-            <p>{vote_average ? vote_average.toFixed(1) : N/A}</p>
+            <p>{vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
 
             <div className="flex px-3 gap-4">
               <span>•</span>
@@ -20,7 +20,7 @@ function MovieCard({ movie:{ title, vote_average, poster_path, release_date, ori
             </div>
           </div>
           
-          <p className="year">{release_date ? release_date.split('-')[0] : N/A}</p>
+          <p className="year">{release_date ? release_date.split('-')[0] : 'N/A'}</p>
         </div>
 
       </div>

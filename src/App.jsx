@@ -1,3 +1,4 @@
+import { useDebounce } from "react-use";
 import { useEffect, useState } from "react"
 import Search from "./components/Search"
 import HeroCard from "./components/HeroCard"
@@ -17,17 +18,24 @@ const API_OPTIONS = {
 
 
 function App() {
+
   const [movieList, setMovieList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [debounceSearchTerm, setDebounceSearchTerm] = useState('');
 
-  const fetchMovies = async () => {
+  useDebounce(() => setDebounceSearchTerm(searchTerm), 500, [searchTerm])
+
+  const fetchMovies = async (query = '') => {
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query 
+      ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+      : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`
+
 
       const response = await fetch(endpoint, API_OPTIONS);
       if(!response.ok) {throw new Error('Faild to fetch movies')};
@@ -40,17 +48,21 @@ function App() {
       };
 
       setMovieList(data.results || []);
-    }
-    catch (error) {
+
+    } catch (error) {
       console.log(`Error Fetching Movies: ${error}`);
       setErrorMessage('Error Fetching Movies. Please Try Again Later!');
-    }
-    finally {
+
+    } finally {
       setIsLoading(false);
     };
   };
 
-  useEffect(() => { fetchMovies() }, []);
+  useEffect(() => { 
+    fetchMovies(debounceSearchTerm) 
+  }, [debounceSearchTerm]);
+
+
 
   return (
     <main>
@@ -64,9 +76,7 @@ function App() {
 
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
 
-        <section className="all-movies flex flex-col items-center justify-center mt-7">
-          <h2 className="mt-3 text-purple-300">All Movies</h2>
-
+        <section className="all-movies flex flex-col items-center justify-center mt-30">
           {isLoading 
             ? ( <Loading /> ) 
             : errorMessage ? ( <p className="text-[17px] text-red-300">{errorMessage}</p> ) 
