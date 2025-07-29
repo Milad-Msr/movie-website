@@ -71,7 +71,7 @@ function App() {
       <div className="wrapper">
         <header>
           <HeroCard />
-          <h1 className="text-[60px]">Find <span className="text-gradient">Movies</span> You'll Enjoy <br /> Without the Hassle</h1>
+          <h1 className="text-[30px] md:text-[50px] lg:text-[60px]">Find <span className="text-gradient">Movies</span> You'll Enjoy <br /> Without the Hassle</h1>
         </header>
 
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
